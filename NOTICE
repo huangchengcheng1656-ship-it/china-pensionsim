@@ -14,7 +14,7 @@ Third-party data included:
   Nations, Department of Economic and Social Affairs, Population Division,
   World Population Prospects 2024, mortality for China. Source and retrieval
   details and file hashes are recorded in source_manifest.json in the same
-  directory. The extraction script named in that manifest is not included in
+  directory. The extraction code identified by hash in that manifest is not included in
   this release; the extract can be checked against the published WPP 2024
   files through the recorded hashes. WPP 2024 is licensed under CC BY 3.0 IGO
   (http://creativecommons.org/licenses/by/3.0/igo/). Source: United Nations,
