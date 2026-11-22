@@ -21,12 +21,12 @@ This document states what China PensionSIM 1.0.0 computes, in what order, and un
 2. Annuity vesting events and job exits are processed.
 3. Benefits are paid if the person retired in an earlier month (first payment = month after retirement).
 4. For a person not yet retired: labour state, wage, contribution eligibility, wage-tax withholding, basic-pension and resident contributions, annuity contributions, individual pension contribution and its tax effect, household cash.
-5. Eligibility and claim: at and after the statutory retirement month the model compares credited months, **including this month's contribution**, with the minimum period for the year (`minimum_months`). A qualifying worker retires in this month and is paid from the next month. With a verified history, adjudication happens at the end of the decision month, so credits posted in that month count; later credits are rejected.
+5. Eligibility and claim: at and after the statutory retirement month the model compares credited months, **including this month's contribution**, with the minimum period for the calendar year of the month being assessed (`minimum_months`). A qualifying worker retires in this month and is paid from the next month. With a verified history, adjudication happens at the end of the decision month, so credits posted in that month count; later credits are rejected.
 6. In December the annual wage tax is computed and the difference from tax withheld is scheduled for June of the next year.
 
 ## 3. Eligibility and transfers
 
-- Minimum period: 180 months to 2029; 186 in 2030, +6 a year, 240 from 2039, set by the year of the statutory retirement month.
+- Minimum period: 180 months to 2029; 186 in 2030, +6 a year, 240 from 2039. Eligibility checks use the calendar year of the month being assessed. The continued-contribution scenario uses the same rule: when contributions extend across a year in which the minimum increases, the threshold increases too.
 - Shortfall at retirement: contributions continue for up to `Scenario.extension_months` months after the statutory month (default 24, a scenario assumption; national implementing rules for the post-2030 schedule are not yet published). If the minimum is still not met, the record moves to the resident scheme, where resident rules apply from age 60 with 180 credited months.
 - Lump-sum buy-back is not modelled in 1.0.0.
 
@@ -40,8 +40,8 @@ This document states what China PensionSIM 1.0.0 computes, in what order, and un
 
 - Cumulative withholding with a basic deduction of 5,000 yuan per month of employment in the year (SAT Announcement 2018 No. 61). A negative cumulative balance is not refunded within the year.
 - Special deductions: for formal employees, the 8% basic-pension contribution and the employee annuity contribution up to 4% of the contribution base (MOF–SAT [2013] No. 103). Health insurance, housing fund and special additional deductions are not modelled.
-- Annual settlement: annual tax with the 60,000-yuan standard deduction; the refund or top-up is paid in June of the next year. Small-amount exemptions from the annual settlement are not modelled.
-- Wage income of nonstandard workers is taxed with the same wage schedule and receives no special deduction; the model does not assign business or service income categories.
+- Annual settlement: annual tax with the 60,000-yuan standard deduction. The model places the refund or top-up in June of the next year as a common cash-flow timing assumption; the statutory filing window is March through June. Small-amount exemptions from the annual settlement are not modelled.
+- For the nonstandard-worker scenario, income is taxed with the same wage schedule and no special deduction. These are modelling assumptions; the model does not assign business or service income categories or represent all deductions available to flexible workers.
 - Fiscal cost of the individual pension deduction = tax collected without the deduction minus tax collected with it, month by month and at settlement, so the household gain and the fiscal cost reconcile.
 
 ## 6. Paths, valuation and fiscal accounting
