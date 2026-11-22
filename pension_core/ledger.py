@@ -388,8 +388,11 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
             # annuity contributions are special deductions, earlier P3 deductions carry forward,
             # and a negative cumulative balance waits for the annual settlement.
             special_now = 0.0
-            if formal and access_open:
-                special_now = requested
+            if formal:
+                if access_open:
+                    special_now = requested
+                # First-pillar posting access does not stop the separate annuity
+                # contributions below, so their deduction follows their own payment.
                 if p.government_job:
                     special_now += .04 * worker_base
                 elif offer:
