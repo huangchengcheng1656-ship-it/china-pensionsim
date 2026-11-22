@@ -5,6 +5,7 @@ version: 1.0.0
 date-released: 2026-11-22
 license: Apache-2.0
 type: software
+repository-code: "https://github.com/huangchengcheng1656-ship-it/china-pensionsim"
 authors:
   - family-names: Wang
     given-names: Ping
