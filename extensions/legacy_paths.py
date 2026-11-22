@@ -1,11 +1,10 @@
-"""Map development-round directory names in sealed fixtures to the public layout.
+"""Map development-round directory names in retained fixtures to the public layout.
 
-The synthetic fixtures under ``extensions/`` are kept byte-identical to the
-sealed R103 research release, so their recorded hashes stay valid. Those files
-still name the original development directories (``continuation_rNN``). The
-public release moved each directory to a descriptive name; this module rewrites
-the old names inside a loaded JSON object so that regression tests compare like
-with like. Numbers and hashes are never changed.
+Some retained research fixtures name the original development directories
+(``continuation_rNN``). This module rewrites those names in loaded JSON objects
+so regression tests compare the corresponding public paths. It leaves numbers
+and hashes unchanged. Release baselines regenerated after model fixes are
+identified in the changelog and the relevant regression-test documentation.
 """
 import re
 
