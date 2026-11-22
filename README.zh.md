@@ -1,5 +1,7 @@
 # China PensionSIM 1.0：中国多层次养老金动态微观模拟模型
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24441002.svg)](https://doi.org/10.5281/zenodo.24441002)
+
 [English](README.md)
 
 China PensionSIM 是用于中国多支柱养老金政策情景比较的按月动态微观模拟软件，按月追踪个人在三支柱体系中的缴费、权益与待遇：职工与城乡居民基本养老保险、企业年金与职业年金、个人养老金。模型写入了决定"谁能按月领取、何时领取、领多少"的法定规则，包括 2025—2039 年渐进式延迟法定退休年龄，以及 2030—2039 年最低缴费年限由 15 年逐步提高到 20 年；同时处理职工与居民制度之间的衔接转移、地区缴费基数上下限与计发基数、养老金相关个人所得税和家庭现金约束。
@@ -83,9 +85,11 @@ python -B -m unittest extensions.survival_valuation.valuation.test_paths extensi
 
 使用本模型请引用软件（见 [CITATION.cff](CITATION.cff)）：
 
-> Wang, P., & Huang, C. (2026). *China PensionSIM: An open dynamic microsimulation model of China's multi-pillar pension system* (Version 1.0.0) [Computer software].
+> Wang, P., & Huang, C. (2026). *China PensionSIM: An open dynamic microsimulation model of China's multi-pillar pension system* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24441002
 
-仓库：https://github.com/huangchengcheng1656-ship-it/china-pensionsim。首个存档版本发布后补充 DOI。
+仓库：https://github.com/huangchengcheng1656-ship-it/china-pensionsim。
+
+所有版本：[10.5281/zenodo.24441001](https://doi.org/10.5281/zenodo.24441001)。引用 v1.0.0 的结果时，请使用上方具体版本 DOI。
 
 ## 许可
 
