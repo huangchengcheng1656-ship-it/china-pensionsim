@@ -54,7 +54,9 @@ def trace_row(t,job,ordinary0,p30,ordinary1,p31,p3_before_withdraw,p3_gross,depo
     else:
         funds,limit,before_tax,after_tax,needed,debt,p1,p2,posted,before_p3,relief=work
         effects=funding(funds,limit,deposit,relief)
-        base=before_p3+max(0.,funds+relief-deposit)-effects['ordinary_draw_total']
+        # Adjudication follows work and the P3 deposit. Its overlap refund is a
+        # later cash inflow, not a source available for the earlier P3 deposit.
+        base=before_p3+max(0.,funds+relief-deposit)-effects['ordinary_draw_total']+refund
         near(base,ordinary1,'ordinary assets and single actual draw')
         near(gap,effects['uncovered_model'],'household cash gap in same-month partition')
     near(before_tax-after_tax,relief,'tax liability and realized relief')
