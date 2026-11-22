@@ -1,0 +1,3 @@
+dataset_type,review_status,review_reference,person_key,baseline_month,worker_actual_months,worker_deemed_months,resident_credited_months,contribution_period_month,posting_month,contribution_base_yuan,transfer_completion_date,retirement_category,assessment_month,first_payment_month,bank_receipt_yuan,verified_zero_receipt
+synthetic,not_required,,SYNTH-001,2026-01,120,0,0,2026-01,2026-02,6000,2026-01-15,ordinary_male,2030-01,2030-02,0,1
+synthetic,not_required,,SYNTH-002,2026-01,96,12,24,2026-01,2026-03,4800,2026-01-20,ordinary_female_50,2030-01,2030-03,3250.5,0

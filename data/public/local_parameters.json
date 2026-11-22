@@ -1,0 +1,155 @@
+﻿{
+  "as_of": "2026-11-15",
+  "employee": {
+    "region": "浙江省",
+    "scope": "企业职工基本养老保险个人缴费基数及当年新退休人员计发工资口径；单位养老缴费金额另须按适用缴费工资和单位规则计算",
+    "ordinary_employee_person_rate": 0.08,
+    "employer_example_rate": 0.16,
+    "flexible_employment_rate": 0.20,
+    "individual_account_credit_rate": 0.08,
+    "periods": [
+      {
+        "document": "浙人社发〔2025〕52号",
+        "signed": "2025-09-17",
+        "published": "2025-09-18",
+        "applies_from": "2025-01-01",
+        "applies_through": "2025-12-31",
+        "floor_yuan_per_month": 4986,
+        "floor_reference_wage_year": 2023,
+        "floor_reference_wage_yuan_per_month": 8310,
+        "ceiling_yuan_per_month": 25299,
+        "ceiling_reference_wage_year": 2024,
+        "new_retiree_wage_reference_year": 2024,
+        "new_retiree_wage_yuan_per_year": 101194,
+        "new_retiree_wage_yuan_per_month": 8433,
+        "transaction_adjustment_schedule": null,
+        "sources": [
+          "https://rlsbt.zj.gov.cn/art/2025/9/18/art_1229506773_2569490.html",
+          "https://rlsbt.zj.gov.cn/art/2025/9/18/art_1229101513_2569494.html",
+          "https://zhejiang.chinatax.gov.cn/art/2025/12/11/art_13314_645797.html"
+        ]
+      },
+      {
+        "document": "浙人社发〔2026〕52号",
+        "signed": "2026-10-08",
+        "published": "2026-10-08",
+        "applies_from": "2026-01-01",
+        "applies_through": "2026-12-31",
+        "floor_yuan_per_month": 5122,
+        "floor_reference_wage_year": 2025,
+        "floor_reference_wage_yuan_per_month": 8537,
+        "ceiling_yuan_per_month": 25611,
+        "ceiling_reference_wage_year": 2025,
+        "new_retiree_wage_reference_year": 2025,
+        "new_retiree_wage_yuan_per_year": 102446,
+        "new_retiree_wage_yuan_per_month": 8537,
+        "transaction_adjustment_schedule": null,
+        "sources": [
+          "https://rlsbt.zj.gov.cn/col/col1229506773/art/2026/art_2b4555c11a034b9e874038cbff2f84fb.html",
+          "https://rlsbt.zj.gov.cn/col/col1229101513/art/2026/art_e8b496ab59834390884b8d375cff1651.html",
+          "https://zhejiang.chinatax.gov.cn/art/2026/10/23/art_8414_84627.html"
+        ]
+      }
+    ]
+  },
+  "zhejiang_resident_credit_floor": {
+    "document": "浙人社发〔2025〕65号",
+    "signed": "2025-12-05",
+    "applies_from": "2026-01-01",
+    "minimum_yuan_per_year_by_annual_tier": {"2000":500,"3000_or_more":600},
+    "sources": [
+      "https://rlsbt.zj.gov.cn/col/col1229506773/art/2025/art_059ce7b5b5cc41e584179d43b682c1ad.html",
+      "https://zfgb.hangzhou.gov.cn/15/104220263/t101220263044/530347.shtml"
+    ]
+  },
+  "hangzhou_urban_resident": {
+    "region": "杭州市区；缴费参数排除桐庐县、淳安县、建德市",
+    "standard_claim_age_years": 60,
+    "standard_claim_minimum_contribution_years": 15,
+    "maximum_per_year_of_retroactive_personal_contribution": 5000,
+    "account_divisor_months": 139,
+    "primary_central_claim_conditions": "正常领取须没有领取国家规定的其他基本养老保障待遇；制度实施时特定队列、历史补缴和同月衔接适用另行规则",
+    "payment_amount_snapshots": [
+      {"as_of":"2024-12-31","basic_yuan_per_month":370,"first_effective_month":null,"source":"https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web149/site/attach/0/cc4ddee30c3548f7b6cae4c6bb222795.pdf"},
+      {"as_of":"2025-12-31","basic_yuan_per_month":390,"first_effective_month":null,"source":"https://zfgb.hangzhou.gov.cn/148/102220263/t103220263024/530188.shtml"},
+      {"as_of":"2026-04-13","basic_yuan_per_month":390,"first_effective_month":null,"source":"https://www.hzzx.gov.cn/cshz/content/2026-04/13/content_9205594.htm"}
+    ],
+    "claim_formula_sources": [
+      "https://www.ndrc.gov.cn/xwdt/ztzl/xxczhjs/ghzc/201605/t20160505_971901.html",
+      "https://zfgb.hangzhou.gov.cn/11/105220253/t119220253054/519184.shtml",
+      "https://zfgb.hangzhou.gov.cn/10/105220253/t123220253054/519932.shtml"
+    ],
+    "main_urban_2014_year_addition_schedule": {
+      "scope": "2014主城区实施细则；2020调整机制继续引用2013相关待遇办法，避免以2014旧行政区口径自动映射其他区县",
+      "source": "https://zfgb.hangzhou.gov.cn/10/105220253/t123220253054/519977.shtml",
+      "marginal_yuan_per_month_per_credited_year": [[1,5,1],[6,10,2],[11,15,3],[16,null,5]]
+    },
+    "age_addition": {
+      "document":"杭人社发〔2020〕76号",
+      "applies_from":"2020-01-01",
+      "yuan_per_month_by_minimum_age": {"65":10,"70":15,"75":20},
+      "source":"https://zfgb.hangzhou.gov.cn/11/105220253/t119220253054/519184.shtml"
+    },
+    "contribution_periods": [
+      {
+        "document": "杭人社发〔2024〕112号",
+        "signed": "2024-10-30",
+        "published": "2024-12-04",
+        "applies_from": "2024-01-01",
+        "applies_through": "2025-12-31",
+        "tier_to_account_credit_yuan_per_year": {"300":80,"500":110,"1000":200,"2000":300,"3000":400,"5000":500,"7000":600},
+        "sources": ["https://zfgb.hangzhou.gov.cn/11/105220253/t117220253054/518702.shtml"]
+      },
+      {
+        "document": "杭人社发〔2026〕21号；低档延续杭人社发〔2024〕112号",
+        "signed": "2026-03-26",
+        "published": "2026-04-02",
+        "document_in_force_from": "2026-03-30",
+        "applies_from": "2026-01-01",
+        "applies_through": null,
+        "tier_to_account_credit_yuan_per_year": {"300":80,"500":110,"1000":200,"2000":500,"3000":600,"5000":700,"7000":900},
+        "sources": [
+          "https://zfgb.hangzhou.gov.cn/11/104220263/t101220263044/530346.shtml",
+          "https://zfgb.hangzhou.gov.cn/15/104220263/t101220263044/530347.shtml",
+          "https://zfgb.hangzhou.gov.cn/11/105220253/t117220253054/518702.shtml"
+        ]
+      }
+    ],
+    "hardship_lowest_tier_public_payment_yuan_per_year": 300,
+    "hardship_scope_document": "杭人社发〔2024〕112号第一条，低保对象、特困人员、残疾人、低保边缘户等缴费困难群体；实际归类由经办认定"
+  },
+  "employment_social_insurance_subsidy": {
+    "hangzhou_documented_local_profile": {
+      "document": "杭人社发〔2023〕7号，《杭州市灵活就业社保补贴实施办法》",
+      "signed": "2023-01-31",
+      "effective_from": "2023-02-01",
+      "region":"杭州市域",
+      "claimants": ["认定的就业困难人员","毕业2年以内的高校毕业生"],
+      "eligibility": "当地灵活就业、登记并以灵活就业人员身份在杭州实缴。全日制劳动关系、公益岗位或领取营业证照按登记退出规则处理。",
+      "reimbursement_rate": 0.5,
+      "qualifying_fee_types": ["实际缴纳的职工基本养老保险费","实际缴纳的职工基本医疗保险费"],
+      "graduate_duration_months_in_local_text": 36,
+      "hardship_duration": "最晚至就业援助卡有效期满或社会保险补贴和岗位补贴期满；达到法定退休年龄或办理按月领养老金时至当月，转为全日制等应注销登记情形至前一个月。",
+      "interrupted_months": "当地文本要求补齐或书面放弃相应欠费月份的补贴。按实缴情形，中断月份计入补贴期限。",
+      "payment": "实际缴费后申请；符合条件次月起至次年12月底，一般每12个月申请一次；审核、公示、拨付后成为现金流",
+      "exact_calendar_month_of_payment": null,
+      "current_graduate_funding_rule_resolved": false,
+      "sources": [
+        "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web3176/site/attach/0/85d72c8ac7154f5c8ebbacd0686732a1.pdf",
+        "https://zfgb.hangzhou.gov.cn/10/105220253/t116220253054/518026.shtml"
+      ]
+    },
+    "central_fund_rules_2026": {
+      "document": "财社〔2026〕1号，第五条（三）、第十七条、第二十四至二十六条",
+      "effective_from": "2026-01-19",
+      "graduate_cap_months": 24,
+      "employment_hardship_standard_cap_months": 36,
+      "employment_hardship_near_retirement_max_months": 60,
+      "employment_hardship_near_retirement_threshold_years_strictly_less_than": 5,
+      "maximum_share_of_actual_fee": "2/3",
+      "reimbursement_after_payment": true,
+      "payment_channel": "面向个人的补贴原则上发至本人社会保障卡",
+      "sources": ["https://sbs.mof.gov.cn/zxzyzf/jybzzj/202601/t20260119_3982161.htm"]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "China PensionSIM: An open dynamic microsimulation model of China's multi-pillar pension system"
+version: 1.0.0
+date-released: 2026-11-22
+license: Apache-2.0
+type: software
+authors:
+  - family-names: Wang
+    given-names: Ping
+    affiliation: "Taizhou Vocational and Technical College"
+  - family-names: Huang
+    given-names: Chengcheng
+    affiliation: "Weifang Ocean University of Science and Technology"
+    email: huangcc_1986@126.com
+keywords:
+  - pension
+  - dynamic microsimulation
+  - China
+  - multi-pillar pension system
+  - minimum contribution period
+  - retirement age reform
+abstract: >-
+  China PensionSIM is a rule-based monthly dynamic microsimulation model of
+  China's three-pillar pension system. It encodes eligibility, contribution,
+  benefit, transfer and tax rules with their legal sources, including the
+  2025-2039 retirement-age reform and the rise of the minimum contribution
+  period from 15 to 20 years.

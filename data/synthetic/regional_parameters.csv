@@ -1,0 +1,3 @@
+dataset_type,review_status,review_reference,province,area_level,area_name,year,average_wage_monthly,contribution_floor_monthly,contribution_ceiling_monthly,retirement_base_monthly,resident_basic_monthly,source_url,document,effective_from,verification_status
+synthetic,not_required,,示例省,province,示例省,2030,10000,6000,30000,10000,,,synthetic fixture,2030-01-01,synthetic_unverified
+synthetic,not_required,,示例省,city,示例市,2030,,,,,500,,synthetic fixture,,synthetic_unverified

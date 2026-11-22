@@ -1,0 +1,20 @@
+China PensionSIM
+Copyright 2026 Ping Wang and Chengcheng Huang
+
+This product includes software developed by Ping Wang (Taizhou Vocational and
+Technical College) and Chengcheng Huang (Weifang Ocean University of Science
+and Technology).
+
+Source code is licensed under the Apache License, Version 2.0 (see LICENSE).
+Policy parameters, synthetic data and documentation are licensed under the
+Creative Commons Attribution 4.0 International License (see LICENSE-DATA).
+
+Third-party data included:
+- extensions/mortality_wpp/valuation/mortality_public/: extract of United
+  Nations, Department of Economic and Social Affairs, Population Division,
+  World Population Prospects 2024, mortality for China. Source and retrieval
+  details are recorded in source_manifest.json in the same directory. The
+  United Nations data are used under the terms published by the UN
+  Population Division.
+- data/public/: public policy documents and parameters issued by Chinese
+  government bodies; each row records its source.

@@ -1,0 +1,346 @@
+{
+  "dataset_type": "synthetic",
+  "units": "nominal fiscal cents and P1 value cents",
+  "model_checks_by_funding_rule": {
+    "reserve_verified_gap": {
+      "july_august_window_closed": {
+        "count": {
+          "allocation": {
+            "medium_gap_female55": {
+              "approve": 1
+            },
+            "small_gap_male60": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            0,
+            28452
+          ],
+          "paid_by_month": [
+            0,
+            28452
+          ],
+          "added_count_by_scenario": [
+            2,
+            2
+          ],
+          "value_fen_by_scenario": [
+            164439,
+            164439
+          ],
+          "objective_score": 2,
+          "nodes_visited": 11,
+          "nodes_pruned": 2
+        },
+        "gain": {
+          "allocation": {
+            "large_gap_female50": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            19226,
+            30000
+          ],
+          "paid_by_month": [
+            19226,
+            30000
+          ],
+          "added_count_by_scenario": [
+            1,
+            1
+          ],
+          "value_fen_by_scenario": [
+            270461,
+            90438
+          ],
+          "objective_score": 270461,
+          "nodes_visited": 6,
+          "nodes_pruned": 1
+        }
+      },
+      "july_august_window_open": {
+        "count": {
+          "allocation": {
+            "medium_gap_female55": {
+              "approve": 1
+            },
+            "small_gap_male60": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            0,
+            28452
+          ],
+          "paid_by_month": [
+            0,
+            28452
+          ],
+          "added_count_by_scenario": [
+            2,
+            2
+          ],
+          "value_fen_by_scenario": [
+            164439,
+            164439
+          ],
+          "objective_score": 2,
+          "nodes_visited": 11,
+          "nodes_pruned": 2
+        },
+        "gain": {
+          "allocation": {
+            "medium_gap_female55": {
+              "approve": 1
+            },
+            "small_gap_male60": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            0,
+            28452
+          ],
+          "paid_by_month": [
+            0,
+            28452
+          ],
+          "added_count_by_scenario": [
+            2,
+            2
+          ],
+          "value_fen_by_scenario": [
+            164439,
+            164439
+          ],
+          "objective_score": 164439,
+          "nodes_visited": 11,
+          "nodes_pruned": 2
+        }
+      },
+      "maximin_gain": {
+        "allocation": {
+          "medium_gap_female55": {
+            "approve": 1
+          },
+          "small_gap_male60": {
+            "approve": 1
+          }
+        },
+        "reserved_by_month": [
+          0,
+          28452
+        ],
+        "paid_by_month": [
+          0,
+          28452
+        ],
+        "added_count_by_scenario": [
+          2,
+          2
+        ],
+        "value_fen_by_scenario": [
+          164439,
+          164439
+        ],
+        "objective_score": 164439,
+        "nodes_visited": 11,
+        "nodes_pruned": 2
+      },
+      "minimax_regret": {
+        "allocation": {
+          "large_gap_female50": {
+            "approve": 1
+          }
+        },
+        "reserved_by_month": [
+          19226,
+          30000
+        ],
+        "paid_by_month": [
+          19226,
+          30000
+        ],
+        "added_count_by_scenario": [
+          1,
+          1
+        ],
+        "value_fen_by_scenario": [
+          270461,
+          90438
+        ],
+        "objective_score": 74001,
+        "nodes_visited": 23,
+        "nodes_pruned": 4
+      }
+    },
+    "reserve_uniform_before_clearing": {
+      "july_august_window_closed": {
+        "count": {
+          "allocation": {
+            "small_gap_male60": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            19226,
+            30000
+          ],
+          "paid_by_month": [
+            0,
+            9226
+          ],
+          "added_count_by_scenario": [
+            1,
+            1
+          ],
+          "value_fen_by_scenario": [
+            79715,
+            79715
+          ],
+          "objective_score": 1,
+          "nodes_visited": 13,
+          "nodes_pruned": 1
+        },
+        "gain": {
+          "allocation": {
+            "large_gap_female50": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            19226,
+            30000
+          ],
+          "paid_by_month": [
+            19226,
+            30000
+          ],
+          "added_count_by_scenario": [
+            1,
+            1
+          ],
+          "value_fen_by_scenario": [
+            270461,
+            90438
+          ],
+          "objective_score": 270461,
+          "nodes_visited": 6,
+          "nodes_pruned": 1
+        }
+      },
+      "july_august_window_open": {
+        "count": {
+          "allocation": {
+            "small_gap_male60": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            19226,
+            30000
+          ],
+          "paid_by_month": [
+            0,
+            9226
+          ],
+          "added_count_by_scenario": [
+            1,
+            1
+          ],
+          "value_fen_by_scenario": [
+            79715,
+            79715
+          ],
+          "objective_score": 1,
+          "nodes_visited": 13,
+          "nodes_pruned": 1
+        },
+        "gain": {
+          "allocation": {
+            "large_gap_female50": {
+              "approve": 1
+            }
+          },
+          "reserved_by_month": [
+            19226,
+            30000
+          ],
+          "paid_by_month": [
+            19226,
+            30000
+          ],
+          "added_count_by_scenario": [
+            1,
+            1
+          ],
+          "value_fen_by_scenario": [
+            270461,
+            90438
+          ],
+          "objective_score": 90438,
+          "nodes_visited": 6,
+          "nodes_pruned": 1
+        }
+      },
+      "maximin_gain": {
+        "allocation": {
+          "large_gap_female50": {
+            "approve": 1
+          }
+        },
+        "reserved_by_month": [
+          19226,
+          30000
+        ],
+        "paid_by_month": [
+          19226,
+          30000
+        ],
+        "added_count_by_scenario": [
+          1,
+          1
+        ],
+        "value_fen_by_scenario": [
+          270461,
+          90438
+        ],
+        "objective_score": 90438,
+        "nodes_visited": 6,
+        "nodes_pruned": 1
+      },
+      "minimax_regret": {
+        "allocation": {
+          "large_gap_female50": {
+            "approve": 1
+          }
+        },
+        "reserved_by_month": [
+          19226,
+          30000
+        ],
+        "paid_by_month": [
+          19226,
+          30000
+        ],
+        "added_count_by_scenario": [
+          1,
+          1
+        ],
+        "value_fen_by_scenario": [
+          270461,
+          90438
+        ],
+        "objective_score": 0,
+        "nodes_visited": 18,
+        "nodes_pruned": 3
+      }
+    }
+  },
+  "source_sha256": {
+    "continuation_r100/portfolio/cases.synthetic.json": "fe9cfe93c6b447369e006cdc70e8fa61500f1c5cf58351c7e91b7a44f98b1289",
+    "continuation_r100/portfolio/results.synthetic.json": "1e828b2c10eda3679a6d67db82c96f2e3cab9e6f7040f55bf97ade5c92b2bd27"
+  }
+}

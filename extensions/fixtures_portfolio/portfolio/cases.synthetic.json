@@ -1,0 +1,69 @@
+{
+  "schema": "r100_household_portfolio_casebook",
+  "dataset_type": "synthetic",
+  "valuation": {
+    "annual_discount": 0.025,
+    "cutoff_age": 100,
+    "anchor": "2026-01",
+    "base_yuan": 4500
+  },
+  "months": {
+    "first": "2030-03",
+    "last": "2030-09",
+    "support_months": [
+      "2030-05",
+      "2030-06"
+    ],
+    "target_last_posting": "2030-06"
+  },
+  "funding": {
+    "opening_yuan": "407.74",
+    "ordinary_disposable_yuan": "600.00",
+    "monthly_premium_yuan": "900.00",
+    "contributions_needed": 3,
+    "aggregate_budget_yuan": "500.00",
+    "aggregate_month_caps_yuan": {
+      "2030-05": "200.00",
+      "2030-06": "300.00"
+    },
+    "uniform_uncleared_reserve_yuan": {
+      "2030-05": "192.26",
+      "2030-06": "300.00"
+    }
+  },
+  "households": [
+    {
+      "id": "small_gap_male60",
+      "category": "male60",
+      "april_disposable_yuan": "400.00"
+    },
+    {
+      "id": "medium_gap_female55",
+      "category": "female55",
+      "april_disposable_yuan": "300.00"
+    },
+    {
+      "id": "large_gap_female50",
+      "category": "female50",
+      "april_disposable_yuan": "0.00"
+    },
+    {
+      "id": "normal_control_female50",
+      "category": "female50",
+      "april_disposable_yuan": "600.00"
+    }
+  ],
+  "situations": [
+    {
+      "id": "july_august_window_closed",
+      "extra_closed_for_large_gap": [
+        "2030-07",
+        "2030-08"
+      ]
+    },
+    {
+      "id": "july_august_window_open",
+      "extra_closed_for_large_gap": []
+    }
+  ]
+}

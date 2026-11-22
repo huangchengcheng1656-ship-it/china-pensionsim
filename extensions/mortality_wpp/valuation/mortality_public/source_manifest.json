@@ -1,0 +1,38 @@
+{
+  "dataset": "UN DESA Population Division, World Population Prospects 2024, China (LocID 156, CHN), Medium scenario",
+  "catalog_url": "https://population.un.org/wpp/assets/downloads.json",
+  "methodology_url": "https://population.un.org/wpp/assets/Files/WPP2024_Methodology-Report_Final.pdf",
+  "verified_against_public_catalog": "2026-11-15 Asia/Shanghai",
+  "series_type": "Projected calendar year-specific deaths and exposures, not official administrative qx, mortality estimate or cohort life table.",
+  "selected_years": [
+    2024,
+    2084
+  ],
+  "closed_ages": [
+    40,
+    99
+  ],
+  "sexes": [
+    "male",
+    "female"
+  ],
+  "age_unit": "last completed age, one-year cell; open 100+ deliberately excluded",
+  "source_files": {
+    "deaths": {
+      "file_name": "WPP2024_DeathsBySingleAgeSex_Medium_2024-2100.csv.gz",
+      "source_url": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/CSV_FILES/WPP2024_DeathsBySingleAgeSex_Medium_2024-2100.csv.gz",
+      "sha256": "c66a441c5688f168511f9b776b8f6ea8e6092bbb0999203d96e34d93e8eb0efe",
+      "bytes": 48452229
+    },
+    "exposure": {
+      "file_name": "WPP2024_PopulationExposureBySingleAgeSex_Medium_2024-2100.csv.gz",
+      "source_url": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/CSV_FILES/WPP2024_PopulationExposureBySingleAgeSex_Medium_2024-2100.csv.gz",
+      "sha256": "cb6dab1d7117ff48983273aab29cb5aba544df7151b2c26390cdcd4a4dfd0555",
+      "bytes": 67284622
+    }
+  },
+  "central_rate": "deaths divided by exposure, both per thousand quantities cancel",
+  "expected_rows": 7320,
+  "output_sha256": "dbe56c6b7dc4f151837a644e91cc8805a9b73990bdb506a93c412cbe90b91f5c",
+  "extraction_code_sha256": "0e2cac24370dd3eae52d25fe47c16bff0df3a337aa0bf7c4f98e0d36e0f16623"
+}

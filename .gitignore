@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+demo_*/
+*.dta
+*.sav
+*.pkl
+*.pkl.gz
+*.parquet
+*.sas7bdat
+.venv/
+.env

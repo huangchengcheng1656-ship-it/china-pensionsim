@@ -1,0 +1,3 @@
+dataset_type,review_status,review_reference,region,year,scheme,participants,contributors,recipients,fund_income_yuan,fund_expenditure_yuan,fiscal_subsidy_yuan,statistical_scope,source_url,document
+synthetic,not_required,,示例地区,2030,worker,10000,8000,2000,900000000,700000000,100000000,合成职工口径；非统计发布,,synthetic fixture
+synthetic,not_required,,示例地区,2030,resident,12000,6000,4000,240000000,260000000,180000000,合成居民口径；非统计发布,,synthetic fixture

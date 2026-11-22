@@ -1,0 +1,3 @@
+dataset_type,review_status,review_reference,wave,pension_scheme,age_band,sex,weighted_mean_monthly,weighted_median_monthly,recipient_weight,unweighted_n,missing_lower,missing_upper
+synthetic,not_required,,2023,worker,45-54,female,2500,2300,860.5,120,0.05,0.12
+synthetic,not_required,,2023,resident,65+,all,420,390,1520.0,210,0.03,0.09

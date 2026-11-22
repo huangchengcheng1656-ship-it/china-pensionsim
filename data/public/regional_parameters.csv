@@ -1,0 +1,3 @@
+dataset_type,review_status,review_reference,province,area_level,area_name,year,average_wage_monthly,contribution_floor_monthly,contribution_ceiling_monthly,retirement_base_monthly,resident_basic_monthly,source_url,document,effective_from,verification_status
+public_official,source_checked,,浙江省,province,浙江省,2026,8537,5122,25611,8537,,https://rlsbt.zj.gov.cn/col/col1229101513/art/2026/art_e8b496ab59834390884b8d375cff1651.html,浙人社发〔2026〕52号,2026-01-01,verified
+public_official,source_checked,,浙江省,city,杭州市区,2026,,,,,390,https://www.hzzx.gov.cn/cshz/content/2026-04/13/content_9205594.htm,杭州市区2026-04-13居民基础养老金公开观察,,verified

@@ -1,0 +1,573 @@
+{
+  "verified_on": "2026-11-20",
+  "use": "public_policy_reference_only",
+  "worker_zhejiang": {
+    "scope": "浙江省企业职工基本养老保险，金额对应费款所属期间或新退休年度，不代表现金已经收付",
+    "employee_own_rate": "0.08",
+    "flexible_own_rate": "0.20",
+    "individual_account_credit_rate": "0.08",
+    "annual": [
+      {
+        "year": 2023,
+        "contribution_base_min": 4462,
+        "contribution_base_max": 24060,
+        "new_award_monthly_reference": 8020,
+        "new_award_annual_reference": 96237,
+        "wage_reference_year": 2022,
+        "lower_limit_wage_reference_year": 2021,
+        "employee_own_due_at_min": "356.96",
+        "flexible_own_due_at_min": "892.40",
+        "sources": [
+          "zj_base_2023",
+          "xc_book_2023",
+          "zj_base_2024_note",
+          "zj_2024_budget"
+        ]
+      },
+      {
+        "year": 2024,
+        "contribution_base_min": 4812,
+        "contribution_base_max": 24930,
+        "new_award_monthly_reference": 8310,
+        "new_award_annual_reference": 99722,
+        "wage_reference_year": 2023,
+        "lower_limit_wage_reference_year": 2022,
+        "employee_own_due_at_min": "384.96",
+        "flexible_own_due_at_min": "962.40",
+        "sources": [
+          "zj_base_2024",
+          "zj_base_2024_note"
+        ]
+      },
+      {
+        "year": 2025,
+        "contribution_base_min": 4986,
+        "contribution_base_max": 25299,
+        "new_award_monthly_reference": 8433,
+        "new_award_annual_reference": 101194,
+        "wage_reference_year": 2024,
+        "lower_limit_wage_reference_year": 2023,
+        "employee_own_due_at_min": "398.88",
+        "flexible_own_due_at_min": "997.20",
+        "sources": [
+          "zj_base_2025",
+          "zj_base_2025_note"
+        ]
+      },
+      {
+        "year": 2026,
+        "contribution_base_min": 5122,
+        "contribution_base_max": 25611,
+        "new_award_monthly_reference": 8537,
+        "new_award_annual_reference": 102446,
+        "wage_reference_year": 2025,
+        "lower_limit_wage_reference_year": 2025,
+        "employee_own_due_at_min": "409.76",
+        "flexible_own_due_at_min": "1024.40",
+        "sources": [
+          "zj_base_2026",
+          "zj_base_2026_note"
+        ]
+      }
+    ],
+    "rate_sources": [
+      "zj_flexible",
+      "zj_base_2026_note"
+    ],
+    "employer_rate_windows": [
+      {
+        "first_month": "2023-01",
+        "last_month": "2024-03",
+        "rate": "0.14",
+        "sources": [
+          "zj_employer_2024"
+        ]
+      },
+      {
+        "first_month": "2024-04",
+        "last_month": "2024-12",
+        "rate": "0.15",
+        "sources": [
+          "zj_employer_2024"
+        ]
+      },
+      {
+        "first_month": "2025-01",
+        "last_month": "2026-12",
+        "rate": "0.16",
+        "sources": [
+          "zj_employer_2025",
+          "zj_base_2026_note"
+        ]
+      }
+    ]
+  },
+  "resident": {
+    "ordinary_claim_age_months": 720,
+    "ordinary_minimum_contribution_months": 180,
+    "account_divisor_at_ordinary_age": 139,
+    "reference_sources": [
+      "cn_resident",
+      "hz_2013"
+    ],
+    "local_contribution_tiers": [
+      {
+        "region": "杭州适用市区",
+        "excludes": [
+          "桐庐县",
+          "淳安县",
+          "建德市"
+        ],
+        "starts": "2024-01",
+        "verified_through": "2025-12",
+        "annual_tiers": [
+          300,
+          500,
+          1000,
+          2000,
+          3000,
+          5000,
+          7000
+        ],
+        "annual_subsidies": [
+          80,
+          110,
+          200,
+          300,
+          400,
+          500,
+          600
+        ],
+        "lowest_regular_tier": 300,
+        "hardship_government_paid_tier": 300,
+        "source": "hz_tiers_2024"
+      },
+      {
+        "region": "杭州适用市区",
+        "excludes": [
+          "桐庐县",
+          "淳安县",
+          "建德市"
+        ],
+        "starts": "2026-01",
+        "verified_through": "2026-11",
+        "annual_tiers": [
+          300,
+          500,
+          1000,
+          2000,
+          3000,
+          5000,
+          7000
+        ],
+        "annual_subsidies": [
+          80,
+          110,
+          200,
+          500,
+          600,
+          700,
+          900
+        ],
+        "lowest_regular_tier": 300,
+        "hardship_government_paid_tier": 300,
+        "source": "hz_tiers_2026"
+      },
+      {
+        "region": "浙江省台州市",
+        "excludes": [],
+        "starts": "2024-01",
+        "verified_through": "2025-12",
+        "annual_tiers": [
+          200,
+          300,
+          500,
+          1000,
+          2000,
+          3000,
+          5000,
+          7000
+        ],
+        "annual_subsidies": [
+          60,
+          70,
+          80,
+          120,
+          200,
+          300,
+          300,
+          300
+        ],
+        "lowest_regular_tier": 300,
+        "hardship_government_paid_tier": 200,
+        "source": "tz_tiers_2024"
+      }
+    ],
+    "provincial_subsidy_floors": {
+      "starts": "2026-01",
+      "subsidy_for_tier_2000": 500,
+      "subsidy_for_tiers_ge_3000": 600,
+      "source": "zj_resident_subsidy"
+    },
+    "local_basic_payment_references": [
+      {
+        "region": "杭州",
+        "ref_period": "2023",
+        "amount": 350,
+        "kind": "official_fiscal_execution_level",
+        "first_eligible_month": null,
+        "source": "hz_basic_2023"
+      },
+      {
+        "region": "杭州",
+        "ref_period": "2024",
+        "amount": 370,
+        "kind": "official_fiscal_execution_level",
+        "first_eligible_month": null,
+        "source": "hz_basic_2024"
+      },
+      {
+        "region": "杭州",
+        "ref_period": "2025",
+        "amount": 390,
+        "kind": "official_government_report_level",
+        "first_eligible_month": null,
+        "source": "hz_basic_2025"
+      },
+      {
+        "region": "杭州",
+        "ref_period": "2026-04",
+        "amount": 390,
+        "kind": "official_channel_report_level",
+        "first_eligible_month": null,
+        "source": "hz_basic_2026"
+      },
+      {
+        "region": "浙江省台州市",
+        "ref_period": "2024-01_to_2024-03",
+        "amount": 310,
+        "kind": "official_fiscal_execution_level",
+        "first_eligible_month": null,
+        "source": "tz_basic_2024"
+      },
+      {
+        "region": "浙江省台州市",
+        "ref_period": "2024-04_to_2024-12",
+        "amount": 330,
+        "kind": "official_fiscal_execution_level",
+        "first_eligible_month": "2024-04",
+        "source": "tz_basic_2024"
+      },
+      {
+        "region": "浙江省台州市",
+        "ref_period": "2025-01_to_2026-11",
+        "amount": null,
+        "kind": "unverified",
+        "first_eligible_month": null,
+        "source": null
+      }
+    ]
+  },
+  "first_pillar_eligibility": {
+    "sources": [
+      "cn_gradual",
+      "cn_flexible",
+      "cn_transfer",
+      "cn_province_transfer"
+    ],
+    "worker_reference_year_thresholds": {
+      "2029": 180,
+      "2030": 186,
+      "2031": 192,
+      "2032": 198,
+      "2033": 204,
+      "2034": 210,
+      "2035": 216,
+      "2036": 222,
+      "2037": 228,
+      "2038": 234,
+      "2039": 240
+    },
+    "example_2030_low_worker_months": {
+      "range": [
+        180,
+        185
+      ],
+      "has_worker_monthly_pension_at_this_point": false,
+      "post_2030_direction_under_zhejiang_procedure": null
+    }
+  },
+  "sources": {
+    "zj_base_2023": {
+      "document": "公布2023年社会保险有关基数",
+      "issuer": "浙江省人力资源和社会保障厅、财政厅、统计局、医疗保障局、国家税务总局浙江省税务局",
+      "id": "浙人社发〔2023〕60号",
+      "signed": "2023-12-13",
+      "published": null,
+      "printed": "2023-12-14",
+      "applies": "2023年度",
+      "locator": "第1–2页待遇工资及个人缴费基数上下限依据",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web2758/site/attach/0/44b5e4e2a8294f87b7aff8d3045d4f97.pdf"
+    },
+    "xc_book_2023": {
+      "document": "新昌县地方年鉴：2023年社会生活",
+      "issuer": "新昌县政府县人社局条目",
+      "id": null,
+      "signed": null,
+      "published": null,
+      "applies": "2023年度",
+      "locator": "第285页调整基本养老、工伤、失业保险缴费基数",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web2761/site/attach/0/4a36f24e72364ef4a68a5ecc98931b58.pdf"
+    },
+    "zj_2024_budget": {
+      "document": "2024年全省和省级社会保险基金预算执行情况",
+      "issuer": "浙江省财政厅",
+      "id": null,
+      "signed": null,
+      "published": null,
+      "applies": "2024年度",
+      "locator": "企业职工基本养老保险基金收入执行分析，含2023年费款跨年补缴",
+      "url": "https://czt.zj.gov.cn/module/download/downfile.jsp?classid=0&filename=be15a53e379046a9aa252d4d8b406cbe.pdf"
+    },
+    "zj_base_2024": {
+      "document": "公布2024年社会保险有关基数",
+      "issuer": "浙江省人力资源和社会保障厅、财政厅、统计局、医疗保障局、国家税务总局浙江省税务局",
+      "id": "浙人社发〔2024〕61号",
+      "signed": "2024-10-11",
+      "published": null,
+      "applies": "2024-01-01起按年度",
+      "locator": "待遇工资及个人缴费基数上下限依据",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web3114/site/attach/0/1eb8ed8c4dd248dbaa292f834558811c.pdf"
+    },
+    "zj_base_2024_note": {
+      "document": "公布2024年社会保险有关基数政策解读",
+      "issuer": "浙江省人力资源和社会保障厅，通过浙江省公共就业服务平台转载",
+      "id": null,
+      "signed": null,
+      "published": null,
+      "applies": "2024年度，列示2023对比",
+      "locator": "第二部分各小节",
+      "url": "https://0572.zjhr.com/010/client/index27Page1.jsp?column1=3&sortIsActive=07"
+    },
+    "zj_base_2025": {
+      "document": "公布2025年社会保险有关基数",
+      "issuer": "浙江省人力资源和社会保障厅、财政厅、统计局、医疗保障局、国家税务总局浙江省税务局",
+      "id": "浙人社发〔2025〕52号",
+      "signed": "2025-09-17",
+      "published": "2025-09-18",
+      "applies": "2025-01-01起按年度",
+      "locator": "待遇工资及个人缴费基数上下限依据",
+      "url": "https://rlsbt.zj.gov.cn/art/2025/9/18/art_1229506773_2569490.html"
+    },
+    "zj_base_2025_note": {
+      "document": "浙江省2025年社会保险费缴费基数上下限标准问答",
+      "issuer": "国家税务总局浙江省税务局",
+      "id": null,
+      "signed": null,
+      "published": "2025-12-11",
+      "applies": "2025年度",
+      "locator": "政策问答第二段，上下限数字",
+      "url": "https://zhejiang.chinatax.gov.cn/art/2025/12/11/art_13314_645797.html"
+    },
+    "zj_base_2026": {
+      "document": "公布2026年社会保险有关基数",
+      "issuer": "浙江省人力资源和社会保障厅、财政厅、统计局、医疗保障局、国家税务总局浙江省税务局",
+      "id": "浙人社发〔2026〕52号",
+      "signed": "2026-10-08",
+      "published": "2026-10-08",
+      "applies": "2026-01-01起按年度",
+      "locator": "第一至三项",
+      "url": "https://rlsbt.zj.gov.cn/col/col1229506773/art/2026/art_2b4555c11a034b9e874038cbff2f84fb.html"
+    },
+    "zj_base_2026_note": {
+      "document": "公布2026年度社会保险有关基数政策解读",
+      "issuer": "浙江省人力资源和社会保障厅",
+      "id": null,
+      "signed": null,
+      "published": "2026-10-08",
+      "applies": "2026年度",
+      "locator": "第二部分三个小节及职工、灵活就业缴费举例",
+      "url": "https://rlsbt.zj.gov.cn/col/col1229101513/art/2026/art_e8b496ab59834390884b8d375cff1651.html"
+    },
+    "zj_flexible": {
+      "document": "进一步做好灵活就业人员参加企业职工基本养老保险工作",
+      "issuer": "浙江省人力资源和社会保障厅",
+      "id": "浙人社发〔2021〕63号",
+      "signed": "2021-12-01",
+      "published": "2022-01-21",
+      "applies": "2021-12-01施行，20%自2022-01-01起",
+      "locator": "政府公报第34–35页第一、三项",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web3241/site/attach/0/0dd5092552184ab5a30f85398d55d69a.pdf"
+    },
+    "zj_employer_2024": {
+      "document": "关于2024年企业职工基本养老保险费申报缴纳的通告",
+      "issuer": "浙江省人力资源和社会保障厅、国家税务总局浙江省税务局、国家税务总局宁波市税务局",
+      "id": null,
+      "signed": "2024-03-29",
+      "published": "2024-04-09",
+      "applies": "2022-09起14%的历史回溯，2024-04起15%",
+      "locator": "正文首段",
+      "url": "https://zhejiang.chinatax.gov.cn/art/2024/4/9/art_22104_613278.html"
+    },
+    "zj_employer_2025": {
+      "document": "关于2025年企业职工基本养老保险费申报缴纳的通告",
+      "issuer": "浙江省人力资源和社会保障厅、国家税务总局浙江省税务局、国家税务总局宁波市税务局",
+      "id": null,
+      "signed": "2025-01-21",
+      "published": "2025-01-21",
+      "applies": "2025-01起16%",
+      "locator": "正文首段",
+      "url": "https://zhejiang.chinatax.gov.cn/art/2025/1/21/art_22104_630903.html"
+    },
+    "hz_tiers_2024": {
+      "document": "关于调整城乡居民基本养老保险缴费档次和缴费补贴标准等有关事项的通知",
+      "issuer": "杭州市人力资源和社会保障局、杭州市财政局、国家税务总局杭州市税务局",
+      "id": "杭人社发〔2024〕112号",
+      "signed": "2024-10-30",
+      "published": null,
+      "applies": "公布施行，调整从2024-01-01起",
+      "locator": "第一至三项及施行条款",
+      "url": "https://zfgb.hangzhou.gov.cn/11/105220253/t117220253054/518702.shtml"
+    },
+    "hz_tiers_2026": {
+      "document": "提高城乡居民基本养老保险缴费补贴标准",
+      "issuer": "杭州市人力资源和社会保障局、杭州市财政局",
+      "id": "杭人社发〔2026〕21号",
+      "signed": "2026-03-26",
+      "published": null,
+      "applies": "2026-03-30施行，调整从2026-01-01起",
+      "locator": "4个调整档及其范围，施行条款",
+      "url": "https://zfgb.hangzhou.gov.cn/11/104220263/t101220263044/530346.shtml"
+    },
+    "tz_tiers_2024": {
+      "document": "关于调整城乡居民基本养老保险缴费档次和缴费补贴标准等有关事项的通知",
+      "issuer": "台州市人力资源和社会保障局、台州市财政局、国家税务总局台州市税务局",
+      "id": "台人社发〔2024〕10号",
+      "signed": "2024-03-26",
+      "published": null,
+      "applies": "2024-01-01起",
+      "locator": "政府公报部门文件第8页，第一至三项",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web2787/site/attach/0/a4e6eb7e95994c0dae3cdba4dbcb5d8c.pdf"
+    },
+    "zj_resident_subsidy": {
+      "document": "加大惠民力度提高城乡居民基本养老保险缴费补贴标准",
+      "issuer": "浙江省人力资源和社会保障厅、浙江省财政厅",
+      "id": "浙人社发〔2025〕65号",
+      "signed": "2025-12-05",
+      "published": null,
+      "applies": "档位调整自2026-01-01起",
+      "locator": "提标首段及各地具体确定",
+      "url": "https://rlsbt.zj.gov.cn/col/col1229506773/art/2025/art_059ce7b5b5cc41e584179d43b682c1ad.html"
+    },
+    "hz_basic_2023": {
+      "document": "杭州市财政预算执行资料",
+      "issuer": "杭州市财政",
+      "id": null,
+      "signed": null,
+      "published": null,
+      "applies": "2023年执行结果",
+      "locator": "第222页市本级社保基金收入第一项",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web3217/site/attach/0/9f453bac957348e6972ab22dd007385f.pdf"
+    },
+    "hz_basic_2024": {
+      "document": "杭州市财政预算执行资料",
+      "issuer": "杭州市财政",
+      "id": null,
+      "signed": null,
+      "published": null,
+      "applies": "2024年执行结果",
+      "locator": "城乡居民基本养老保险基金支出，基础额350升370",
+      "url": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web149/site/attach/0/22d597e448ef42f3912db9c80b730f3c.pdf"
+    },
+    "hz_basic_2025": {
+      "document": "2026年政府工作报告",
+      "issuer": "杭州市人民政府",
+      "id": null,
+      "signed": null,
+      "published": null,
+      "applies": "回顾2025年",
+      "locator": "2025年民生保障执行",
+      "url": "https://zfgb.hangzhou.gov.cn/148/102220263/t103220263024/530188.shtml"
+    },
+    "hz_basic_2026": {
+      "document": "好消息！杭州提高城乡居民养老保险缴费补贴标准",
+      "issuer": "杭州市政协网转载杭州人社来源信息",
+      "id": null,
+      "signed": null,
+      "published": "2026-04-13",
+      "applies": "2026年4月说明采用额",
+      "locator": "养老金计算示例",
+      "url": "https://www.hzzx.gov.cn/cshz/content/2026-04/13/content_9205594.htm"
+    },
+    "tz_basic_2024": {
+      "document": "台州市2024年全市和市本级社会保险基金预算执行情况和2025年全市和市本级社会保险基金预算草案",
+      "issuer": "台州市财政局提交市六届人大五次会议",
+      "id": "人大会议文件18-2",
+      "signed": null,
+      "published": null,
+      "applies": "2024-04-01基础额调为330元",
+      "locator": "第2、4页全市及市本级城乡居民养老基金支出",
+      "url": "https://www.zjtz.gov.cn/module/download/downfile.jsp?classid=0&filename=afeb31736d164dcf963ea4e1b84805db.pdf"
+    },
+    "hz_2013": {
+      "document": "《杭州市基本养老保障办法》",
+      "issuer": "杭州市人民政府",
+      "id": "杭政〔2013〕104号",
+      "signed": "2013-11-30",
+      "published": null,
+      "applies": "2014-01-01施行，后续新规优先",
+      "locator": "第十六、二十六、二十七、五十五款",
+      "url": "https://zfgb.hangzhou.gov.cn/10/105220253/t123220253054/519932.shtml"
+    },
+    "cn_resident": {
+      "document": "国务院关于建立统一的城乡居民基本养老保险制度的意见",
+      "issuer": "国务院",
+      "id": "国发〔2014〕8号",
+      "signed": "2014-02-21",
+      "published": "2014-02-26",
+      "applies": "2014年发文后实施",
+      "locator": "第三、六、七项",
+      "url": "https://www.gov.cn/zhengce/content/2014-02/26/content_8656.htm"
+    },
+    "cn_gradual": {
+      "document": "关于实施渐进式延迟法定退休年龄的决定及所批准国务院办法",
+      "issuer": "全国人民代表大会常务委员会、国务院",
+      "id": null,
+      "signed": "2024-09-13",
+      "published": "2024-09-13",
+      "applies": "2025-01-01施行，缴费门槛从2030-01-01起提高",
+      "locator": "国务院办法第1–3条、附件1–4",
+      "url": "https://legalinfo.moj.gov.cn/zhfxfzzx/fzzxyw/202409/t20240913_506025.html"
+    },
+    "cn_flexible": {
+      "document": "实施弹性退休制度暂行办法",
+      "issuer": "人力资源社会保障部、中共中央组织部、财政部",
+      "id": "人社部发〔2024〕94号",
+      "signed": "2024-12-31",
+      "published": null,
+      "applies": "2025-01-01施行",
+      "locator": "第7–9、13–14条",
+      "url": "https://www.ssf.gov.cn/portal/rootfiles/2025/01/17/1738811824430039-1738811824438875.pdf"
+    },
+    "cn_transfer": {
+      "document": "城乡养老保险制度衔接暂行办法",
+      "issuer": "人力资源社会保障部、财政部",
+      "id": "人社部发〔2014〕17号",
+      "signed": "2014-02-24",
+      "published": "2014-11-03",
+      "applies": "2014-07-01施行",
+      "locator": "第2–9、11条",
+      "url": "https://www.mof.gov.cn/gp/xxgkml/shbzs/201411/t20141103_2500617.htm"
+    },
+    "cn_province_transfer": {
+      "document": "城镇企业职工基本养老保险关系转移接续暂行办法",
+      "issuer": "国务院办公厅转发人力资源社会保障部、财政部",
+      "id": "国办发〔2009〕66号",
+      "signed": "2009-12-28",
+      "published": null,
+      "applies": "2010-01-01施行",
+      "locator": "第5–7、13条",
+      "url": "https://www.beijing.gov.cn/zhengce/gwywj/201001/t20100101_781119.html"
+    }
+  }
+}
