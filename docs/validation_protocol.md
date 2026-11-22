@@ -1,8 +1,8 @@
 # Validation protocol / 验证规程
 
-China PensionSIM separates three kinds of evidence and never mixes them.
+China PensionSIM reports three kinds of evidence.
 
-1. **Rule checks.** Each statutory rule is registered with its source (`data/public/policy_register.csv`) and covered by unit tests.
+1. **Rule checks.** The policy register (`data/public/policy_register.csv`) records rule sources and implementation status. Unit tests cover selected implemented rule boundaries and accounting identities.
 2. **Frozen regression.** Sealed synthetic results are replayed at relative tolerance 1e-12 (`tests/test_frozen_regression.py`).
 3. **Empirical validation with survey aggregates.** Run by approved users in their own secure environment; only reviewed group-level tables enter the repository through `data/requirements/` templates.
 
