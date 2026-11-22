@@ -37,11 +37,12 @@ ARMS = (
     Arm("immediate", 0, "declared_scenario"),
     Arm("refund_resident_if_approved", 3, "declared_scenario"),
     Arm("refund_unresolved", 3, None),
+    # Adjudication happens at the end of the decision month, after that month's posting.
     Arm("refund_unfunded_extension", 3, None, B.LEGAL + 1, B.LEGAL),
     Arm("refund_extension_at_legal_month_end", 3, "declared_scenario",
-        B.LEGAL + 1, B.LEGAL, PRIVATE_TOP_UP),
+        B.LEGAL, B.LEGAL, PRIVATE_TOP_UP),
     Arm("refund_extension_next_month", 3, "declared_scenario",
-        B.LEGAL + 2, B.LEGAL + 1, PRIVATE_TOP_UP),
+        B.LEGAL + 1, B.LEGAL + 1, PRIVATE_TOP_UP),
 )
 
 
@@ -59,8 +60,8 @@ def simulate_arm(category, arm, config):
     cfg = config | {"last_year": (final_age - 1) // 12, "allowed_liquid_draw": 2600.}
     if minimum_months(arm.decision // 12) != minimum_months(B.LEGAL // 12):
         raise ValueError("Adjudication outside the unchanged threshold year needs a separate rule.")
-    if arm.extra_month is not None and not B.LEGAL <= arm.extra_month < arm.decision:
-        raise ValueError("New ordinary payments must post before adjudication.")
+    if arm.extra_month is not None and not B.LEGAL <= arm.extra_month <= arm.decision:
+        raise ValueError("New ordinary payments must post no later than the adjudication month.")
     n = B.month(cfg["last_year"], 12) - B.START + 1
     wage = 5000.
     debt = .72 * wage - cfg["expense_floor_share"] * .56 * wage
@@ -97,7 +98,8 @@ def simulate_arm(category, arm, config):
             for i,(c,m) in enumerate(zip(cash,mobility,strict=True))):
         raise ArithmeticError("The modeled months must be contiguous and shared across traces.")
     entry_by_month = {e["month"]:e for e in entries}
-    at_legal = OPENING + sum(e["worker_posted"] for e in entries if e["month"] < B.LEGAL)
+    at_legal_open = OPENING + sum(e["worker_posted"] for e in entries if e["month"] < B.LEGAL)
+    at_legal = OPENING + sum(e["worker_posted"] for e in entries if e["month"] <= B.LEGAL)
     final_count = OPENING + sum(e["worker_posted"] for e in entries)
     start_cash = person.liquid
     extension_cash = None
@@ -137,7 +139,7 @@ def simulate_arm(category, arm, config):
         "starting_worker_months": OPENING,
         "starting_disposable_yuan_before_private_top_up": CASH,
         "added_private_funds_yuan": arm.private_cash,
-        "credited_at_statutory_month_open": at_legal,
+        "credited_at_statutory_month_open": at_legal_open,
         "extended_ordinary_payment_month": B.plain_month(arm.extra_month),
         "extension_cash_available_for_gross_payment_yuan":
             None if extension_cash is None else round(extension_cash, 2),

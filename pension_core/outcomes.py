@@ -15,7 +15,7 @@ def policy_case(engine,cfg,profile,history,job,worker_subsidy,match,expand,prote
              transfer_events=transfer,monthly_trace=flows,verified_history=history,terminal=terminal)
     event,=transfer
     at=history.decision_month
-    pre=[r for r in log if r['month']<at]
+    pre=[r for r in log if r['month']<=at]
     posted=sum(r['worker_posted'] for r in pre)
     credited_r=sum(r['resident_current_credit'] for r in pre)
     if (event.worker_credit_before!=profile.worker_paid+profile.worker_deemed+posted

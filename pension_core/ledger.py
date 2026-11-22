@@ -132,7 +132,19 @@ class ResidentSchedule:
 
 
 def tax_annual(base, deductible):
+    """Annual wage tax due: 60,000 yuan standard deduction plus the given deductions."""
     return progressive_tax(base - 60000 - deductible, annual=True)
+
+
+MONTHLY_BASIC_DEDUCTION = 5000
+
+
+def withholding_cumulative(income, months, deductions):
+    """Cumulative wage withholding to date (SAT Announcement 2018 No. 61).
+
+    The basic deduction is 5,000 yuan per month of employment in the year so far.
+    """
+    return progressive_tax(income - MONTHLY_BASIC_DEDUCTION * months - deductions, annual=True)
 
 
 def route_job(rng, config, previous):
@@ -204,6 +216,11 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
     detailed = ActiveHistory(verified_history, p, start, returns["p1"]) if verified_history is not None else None
     transfer = None
     personal_ytd = deductible_ytd = taxable_ytd = last_wage = 0.0
+    # Wage tax state: known special deductions, cash withheld with and without P3 deductions,
+    # and annual settlements (refund or top-up) paid in June of the following year.
+    special_ytd = withheld_ytd = withheld_nop3_ytd = 0.0
+    wage_months_ytd = 0
+    tax_settlements = {}
     regular_months = 0
     regime = "worker"  # synthetic affiliation can persist with no payment
     route = "unclaimed"
@@ -226,6 +243,8 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
                 ledger = dict.fromkeys(LEDGER_FIELDS, 0.0)
                 annual_ledger[y] = ledger
             personal_ytd = deductible_ytd = taxable_ytd = 0.0
+            special_ytd = withheld_ytd = withheld_nop3_ytd = 0.0
+            wage_months_ytd = 0
         # Consume the same random draws in every scenario, regardless of policy or claim.
         prev_job = job
         if m == 0:
@@ -259,6 +278,23 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
         current_resident_credit = False
         household_net_cash = household_cash_gap = 0.0
         reimbursed = reimbursements.pop(t, 0.0)
+        active_this_month = False
+        settlement_applied = 0.0
+        settlement = tax_settlements.pop(t, None)
+        if settlement is not None:
+            settlement_cash, settlement_cost = settlement
+            if settlement_cash >= 0:
+                liquid.add(settlement_cash)
+                settlement_applied = settlement_cash
+            else:
+                drawn_tax = liquid.draw(min(-settlement_cash, liquid.balance))
+                settlement_applied = -drawn_tax
+                unpaid = -settlement_cash - drawn_tax
+                consumption_shortfall += max(0.0, unpaid)
+            tax_cost += pv * settlement_cost
+            cash_tax_deduction += settlement_cost
+            if annual_ledger is not None:
+                ledger["personal_deduction"] += settlement_cost
         if reimbursed:
             direct_subsidy += pv * reimbursed
             if annual_ledger is not None:
@@ -284,81 +320,6 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
                 annuity_events.append(dict(month=t, vested=vested,
                                            reversion=float(settlement["returns_to_enterprise_plan"]),
                                            receiving_plan=settlement["receiving_plan"]))
-        if retired_at is None:
-            threshold = minimum_months(y, s.minimum_reform)
-            if t == legal:
-                eligible_at_legal = worker_paid + deemed >= threshold
-            if detailed is not None and transfer is None and t == verified_history.decision_month:
-                transfer, payable = detailed.adjudicate(t, worker.balance, resident.balance, legal, resident_age, threshold)
-                cleared = float(transfer.worker_account_cleared_elsewhere)
-                worker.draw(cleared)
-                refund_cash = float(transfer.resident_own_refund + transfer.resident_collective_refund)
-                liquid.add(resident.draw(refund_cash))
-                if transfer.direction == "resident_to_employee":
-                    resident.transfer(worker)
-                    route = "worker"
-                    account_payout = worker.balance / payout_divisor(t - p.birth, s.divisor)
-                    if local_terms is not None and transfer.benefit_region != local_terms.worker_region:
-                        raise ValueError("validate a retirement base for the determined benefit region")
-                    pension_base = (float(local_terms.employee(t).retirement_base)
-                                    if local_terms is not None else cfg["pension_base"])
-                    claimed[0] = worker_benefit(pension_base, indexed_sum / (worker_paid + deemed),
-                                                transfer.credited_months_after, worker.balance, t - p.birth, s.divisor)
-                    retired_at = t
-                    receiving = worker
-                else:
-                    worker.transfer(resident)
-                    fallback = True
-                    resident_paid = transfer.credited_months_after
-                    receiving = resident
-                    if payable:
-                        route = "resident"
-                        account_payout = resident.balance / 139
-                        claimed[0] = (local_terms.resident_benefit(t) if local_terms is not None else cfg["resident_basic"]) + account_payout
-                        retired_at = t
-                if not isclose(receiving.balance, float(transfer.final_account), rel_tol=1e-10, abs_tol=1e-7):
-                    raise ArithmeticError("combined account balance disagrees with administrative reconciliation")
-                if transfer_events is not None:
-                    transfer_events.append(transfer)
-            elif detailed is not None and fallback and t >= resident_age and resident_paid >= 180:
-                route = "resident"
-                account_payout = resident.balance / 139
-                claimed[0] = (local_terms.resident_benefit(t) if local_terms is not None else cfg["resident_basic"]) + account_payout
-                retired_at = t
-            elif detailed is None and t >= legal and not fallback and worker_paid + deemed >= threshold:
-                resident.transfer(worker)
-                route = "worker"
-                account_payout = worker.balance / payout_divisor(t - p.birth, s.divisor)
-                pension_base = (float(local_terms.employee(t).retirement_base)
-                                if local_terms is not None else cfg["pension_base"])
-                claimed[0] = worker_benefit(pension_base, indexed_sum / (worker_paid + deemed),
-                                            worker_paid + deemed, worker.balance, t - p.birth, s.divisor)
-                retired_at = t
-            elif detailed is None and t >= legal + s.extension_months:
-                fallback = True
-                # No top-up grandfathering. The demo uses actual employee months in this route.
-                if t >= resident_age and worker_paid + resident_paid >= 180:
-                    worker.transfer(resident)
-                    route = "resident"
-                    account_payout = resident.balance / 139
-                    claimed[0] = (local_terms.resident_benefit(t) if local_terms is not None else cfg["resident_basic"]) + account_payout
-                    retired_at = t
-
-        if reimbursed and retired_at is not None:
-            liquid.add(reimbursed)
-
-        if retired_at == t:
-            pending.transfer(owned)  # retirement triggers full corporate vesting
-            if claim_snapshot is not None:
-                claim_snapshot.update(retirement_month=t, first_payment_month=t+1,
-                                      p1_monthly_gross=claimed[0], enterprise_vested=owned.balance,
-                                      occupational=occupational.balance, personal=personal.balance,
-                                      liquid=liquid.balance, corporate_mode="finite",
-                                      occupational_mode="finite", personal_mode="finite")
-            draws = [owned.balance / cfg["annuity_draw_months"],
-                     occupational.balance / cfg["annuity_draw_months"],
-                     personal.balance / cfg["personal_draw_months"]]
-
         if retired_at is not None and t > retired_at:
             elapsed = t - retired_at - 1
             limits = (cfg["annuity_draw_months"], cfg["annuity_draw_months"], cfg["personal_draw_months"])
@@ -386,6 +347,7 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
                 first_annual.append(sum(claimed))
 
         if retired_at is None:
+            active_this_month = True
             # Employer/contract category drives employment. Affiliation and payment are separate.
             current_regime = "resident" if fallback or (job != "standard" and p.self_employed) else (
                 regime if job == "out" else "worker")
@@ -422,10 +384,21 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
 
             current_cash = gross + p.cash - p.debtservice + reimbursed
             essential = cfg["expense_floor_share"] * (p.wage * .56 + p.cash)
-            # Use an annual cumulative tax schedule. Prior months' deductions are carried.
-            tax_at_start = tax_annual(taxable_ytd, deductible_ytd)
+            # Cumulative withholding: formal employees' basic-pension and (up to 4% of the base)
+            # annuity contributions are special deductions, earlier P3 deductions carry forward,
+            # and a negative cumulative balance waits for the annual settlement.
+            special_now = 0.0
+            if formal and access_open:
+                special_now = requested
+                if p.government_job:
+                    special_now += .04 * worker_base
+                elif offer:
+                    special_now += min(cfg["employee_annuity_rate"], .04) * worker_base
             taxable_ytd += gross
-            conservative_tax = tax_annual(taxable_ytd, deductible_ytd) - tax_at_start
+            wage_months_ytd += int(gross > 0)
+            special_ytd += special_now
+            conservative_tax = max(0.0, withholding_cumulative(taxable_ytd, wage_months_ytd,
+                                                                special_ytd + deductible_ytd) - withheld_ytd)
             funds = current_cash - essential - conservative_tax
             liquid_draw = min(cfg["allowed_liquid_draw"], liquid.balance)
 
@@ -532,19 +505,28 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
                 reward = 0.0
             mobility_p3 = own3
             deductible = own3 if s.personal_deduction else 0.0
-            tax_after = tax_annual(taxable_ytd, deductible_ytd + deductible)
-            tax_saved = max(0.0, tax_annual(taxable_ytd, deductible_ytd) - tax_after)
+            tax_after = max(0.0, withholding_cumulative(taxable_ytd, wage_months_ytd,
+                                                        special_ytd + deductible_ytd + deductible) - withheld_ytd)
+            tax_saved = conservative_tax - tax_after
+            # Shadow withholding without any P3 deduction: the fiscal cost of the deduction is
+            # the difference in tax actually collected, including later months and settlement.
+            nop3_paid = max(0.0, withholding_cumulative(taxable_ytd, wage_months_ytd, special_ytd)
+                            - withheld_nop3_ytd)
+            withheld_ytd += tax_after
+            withheld_nop3_ytd += nop3_paid
+            tax_cost_month = nop3_paid - tax_after
             source_work = (funds, liquid_draw, conservative_tax, conservative_tax-tax_saved, essential,
                            p.debtservice, own1, own2, bool(paid), liquid.balance, tax_saved)
             personal_ytd += own3
             deductible_ytd += deductible
             direct_subsidy += pv * reward
-            tax_cost += pv * tax_saved
-            cash_personal_reward, cash_tax_deduction = reward, tax_saved
+            tax_cost += pv * tax_cost_month
+            cash_personal_reward = reward
+            cash_tax_deduction += tax_cost_month
             household_net_cash = funds + tax_saved - own3
             if annual_ledger is not None:
                 ledger["p3_public_reward"] += reward
-                ledger["personal_deduction"] += tax_saved
+                ledger["personal_deduction"] += tax_cost_month
                 ledger["employer_annuity"] += firm2
             funds += tax_saved - own3
             if funds < 0:
@@ -555,6 +537,91 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
                 liquid.add(funds)
             last_wage = gross if gross > 0 else last_wage
 
+        # Order within a month: wages and contributions first, then eligibility and claim.
+        # A worker who reaches the minimum period with this month's contribution retires in
+        # this month and is paid from the next month (first_payment_month = t + 1).
+        if retired_at is None:
+            threshold = minimum_months(y, s.minimum_reform)
+            if t == legal:
+                eligible_at_legal = worker_paid + deemed >= threshold
+            if detailed is not None and transfer is None and t == verified_history.decision_month:
+                transfer, payable = detailed.adjudicate(t, worker.balance, resident.balance, legal, resident_age, threshold)
+                cleared = float(transfer.worker_account_cleared_elsewhere)
+                worker.draw(cleared)
+                refund_cash = float(transfer.resident_own_refund + transfer.resident_collective_refund)
+                liquid.add(resident.draw(refund_cash))
+                if transfer.direction == "resident_to_employee":
+                    resident.transfer(worker)
+                    route = "worker"
+                    account_payout = worker.balance / payout_divisor(t - p.birth, s.divisor)
+                    if local_terms is not None and transfer.benefit_region != local_terms.worker_region:
+                        raise ValueError("validate a retirement base for the determined benefit region")
+                    pension_base = (float(local_terms.employee(t).retirement_base)
+                                    if local_terms is not None else cfg["pension_base"])
+                    claimed[0] = worker_benefit(pension_base, indexed_sum / (worker_paid + deemed),
+                                                transfer.credited_months_after, worker.balance, t - p.birth, s.divisor)
+                    retired_at = t
+                    receiving = worker
+                else:
+                    worker.transfer(resident)
+                    fallback = True
+                    resident_paid = transfer.credited_months_after
+                    receiving = resident
+                    if payable:
+                        route = "resident"
+                        account_payout = resident.balance / 139
+                        claimed[0] = (local_terms.resident_benefit(t) if local_terms is not None else cfg["resident_basic"]) + account_payout
+                        retired_at = t
+                if not isclose(receiving.balance, float(transfer.final_account), rel_tol=1e-10, abs_tol=1e-7):
+                    raise ArithmeticError("combined account balance disagrees with administrative reconciliation")
+                if transfer_events is not None:
+                    transfer_events.append(transfer)
+            elif detailed is not None and fallback and t >= resident_age and resident_paid >= 180:
+                route = "resident"
+                account_payout = resident.balance / 139
+                claimed[0] = (local_terms.resident_benefit(t) if local_terms is not None else cfg["resident_basic"]) + account_payout
+                retired_at = t
+            elif detailed is None and t >= legal and not fallback and worker_paid + deemed >= threshold:
+                resident.transfer(worker)
+                route = "worker"
+                account_payout = worker.balance / payout_divisor(t - p.birth, s.divisor)
+                pension_base = (float(local_terms.employee(t).retirement_base)
+                                if local_terms is not None else cfg["pension_base"])
+                claimed[0] = worker_benefit(pension_base, indexed_sum / (worker_paid + deemed),
+                                            worker_paid + deemed, worker.balance, t - p.birth, s.divisor)
+                retired_at = t
+            elif detailed is None and t >= legal + s.extension_months:
+                fallback = True
+                # No top-up grandfathering. The demo uses actual employee months in this route.
+                if t >= resident_age and worker_paid + resident_paid >= 180:
+                    worker.transfer(resident)
+                    route = "resident"
+                    account_payout = resident.balance / 139
+                    claimed[0] = (local_terms.resident_benefit(t) if local_terms is not None else cfg["resident_basic"]) + account_payout
+                    retired_at = t
+
+        if reimbursed and retired_at is not None and not active_this_month:
+            liquid.add(reimbursed)
+
+        if retired_at == t:
+            pending.transfer(owned)  # retirement triggers full corporate vesting
+            if claim_snapshot is not None:
+                claim_snapshot.update(retirement_month=t, first_payment_month=t+1,
+                                      p1_monthly_gross=claimed[0], enterprise_vested=owned.balance,
+                                      occupational=occupational.balance, personal=personal.balance,
+                                      liquid=liquid.balance, corporate_mode="finite",
+                                      occupational_mode="finite", personal_mode="finite")
+            draws = [owned.balance / cfg["annuity_draw_months"],
+                     occupational.balance / cfg["annuity_draw_months"],
+                     personal.balance / cfg["personal_draw_months"]]
+
+        if m == 11 and (taxable_ytd > 0 or withheld_ytd > 0):
+            due = max(0.0, tax_annual(taxable_ytd, special_ytd + deductible_ytd))
+            due_nop3 = max(0.0, tax_annual(taxable_ytd, special_ytd))
+            refund = withheld_ytd - due
+            refund_nop3 = withheld_nop3_ytd - due_nop3
+            tax_settlements[t + 6] = (refund, refund - refund_nop3)
+
         if annuity_trace is not None:
             annuity_trace.append(annuity_row(t,pv,job,p.government_job,a_open,
                 (owned.balance,pending.balance,occupational.balance),returns["p2"],
@@ -564,10 +631,11 @@ def simulate(p, s, cfg, *, job_path=None, annual_ledger=None, claim_snapshot=Non
             source_trace.append(source_row(t,job,ordinary_open_before_growth,p3_open_before_growth,
                 liquid.balance,personal.balance,p3_before_withdraw,p3_gross,mobility_p3,
                 cash_personal_reward,mobility_retirement[2],source_work,returns["liquid"],returns["p3"],
-                household_cash_gap,refund_cash,reimbursed if retired_at is not None else 0.0))
+                household_cash_gap,refund_cash,reimbursed if not active_this_month else 0.0,
+                settlement_applied if not active_this_month else 0.0))
         if mobility_trace is not None:
             mobility_trace.append(dict(month=t, employment=job, route=route,
-                 active=retired_at is None, p1=cash_p1_benefit,
+                 active=active_this_month, p1=cash_p1_benefit,
                  enterprise_net=mobility_retirement[0], occupational_net=mobility_retirement[1],
                  p2=sum(mobility_retirement[:2]), p3=mobility_retirement[2],
                  p3_own=mobility_p3, p3_subsidy=cash_personal_reward, tax_deduction=cash_tax_deduction,

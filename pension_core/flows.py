@@ -40,14 +40,14 @@ def funding(funds,limit,deposit,relief):
 
 
 def trace_row(t,job,ordinary0,p30,ordinary1,p31,p3_before_withdraw,p3_gross,deposit,match,p3_cash,
-              work,ord_rate,p3_rate,gap,refund,retired_reimbursement):
+              work,ord_rate,p3_rate,gap,refund,retired_reimbursement,tax_settlement=0.):
     p3_earn=p30*p3_rate
     ordinary_earn=ordinary0*ord_rate
     near(p3_before_withdraw,p30+p3_earn,'observed P3 before any draw or new contribution')
     near(p31,p30+p3_earn+deposit+match-p3_gross,'protected P3 directly observed conservation')
     if work is None:
         before_tax=after_tax=needed=debt=p1=p2=posted=relief=0.
-        before_p3=ordinary0+ordinary_earn+refund+retired_reimbursement
+        before_p3=ordinary0+ordinary_earn+refund+retired_reimbursement+tax_settlement
         funds=0.
         effects=funding(0.,0.,0.,0.)
         near(ordinary1,before_p3,'redistribution after retirement without new household events')
@@ -67,6 +67,7 @@ def trace_row(t,job,ordinary0,p30,ordinary1,p31,p3_before_withdraw,p3_gross,depo
         ordinary_before_p3=before_p3,protected_p3_open=p30,protected_p3_end=p31,
         protected_p3_before_withdrawal=p3_before_withdraw,ordinary_growth=ordinary_earn,p3_growth=p3_earn,
         ordinary_overlap_refund=refund,ordinary_deferred_reimbursement=retired_reimbursement,
+        ordinary_tax_settlement=tax_settlement,
         combined_ordinary_p3_end=ordinary1+p31,necessary_due=needed,debtservice=debt,
         income_tax_before_p3=before_tax,income_tax_after_p3=after_tax,tax_deduction=relief,
         p1_member_paid=p1,p2_member_paid=p2,worker_posted=int(posted),p3_cash=p3_cash,p3_gross_withdrawal=p3_gross,

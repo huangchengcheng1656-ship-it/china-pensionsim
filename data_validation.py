@@ -160,6 +160,8 @@ def _numeric_relations(name, values, row, line, errors):
         return values.get(field)
 
     if name == "cfps_transitions.csv":
+        if value("unweighted_n") is not None and value("unweighted_n") <= 0:
+            errors.append(f"line {line}: unweighted_n must be greater than zero")
         if None not in (value("effective_n"), value("unweighted_n")) and value("effective_n") > value("unweighted_n"):
             errors.append(f"line {line}: effective_n cannot exceed unweighted_n")
         if value("missing_share") is not None and not 0 <= value("missing_share") <= 1:
@@ -194,10 +196,13 @@ def _numeric_relations(name, values, row, line, errors):
             errors.append(f"line {line}: verified_zero_receipt=1 requires zero bank_receipt_yuan")
 
 
-def validate_file(path):
-    """Return human-readable errors; an empty list means the CSV is accepted."""
+def validate_file(path, schema=None):
+    """Return human-readable errors; an empty list means the CSV is accepted.
+
+    ``schema`` names the standard table when the file has another name.
+    """
     path = Path(path)
-    name = path.name
+    name = schema or path.name
     prefix = f"{path}: "
     if name not in SCHEMAS:
         return [prefix + "unknown dataset filename"]

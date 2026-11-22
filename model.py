@@ -102,7 +102,7 @@ def main():
     parser.add_argument("--world",choices=WORLDS,default=WORLDS[0])
     grid_flags = parser.add_mutually_exclusive_group()
     grid_flags.add_argument("--budget-grid",action="store_true",help="recompute all 216 cells of the policy price table")
-    grid_flags.add_argument("--grid",action="store_true",help="replay 64 fixed R48 arms and all 4,608 trajectories")
+    grid_flags.add_argument("--grid",action="store_true",help="replay the 64 fixed policy arms and all 4,608 trajectories")
     parser.add_argument("--worker-subsidy",type=positive,default=0.,help="yuan per eligible paid month")
     parser.add_argument("--match",type=positive,default=0.,help="P3 public match fraction, e.g. 0.30")
     parser.add_argument("--funding",choices=SOURCES,default="legacy_once")
@@ -167,7 +167,10 @@ def execute(args,chosen):
             fields=("reference12_gap","eligible_at_decision","any_reference12_p1","predecision_shortfall",
                     "pv_direct","pv_limited_public_pressure","pv_enterprise_employee_contribution",
                     "pv_enterprise_employer_contribution","p1_cash12","p2_cash12","p3_cash12")
-            summaries.append({"world":world,"arm":arm,"risk_units":len(rows),"means_per_path":{k:mean(r[k] for r in rows) for k in fields}})
+            risk=[r for r in rows if r["opening_at_risk"]]
+            summaries.append({"world":world,"arm":arm,"trajectory_count":len(rows),"risk_count":len(risk),
+                              "means_per_path":{k:mean(r[k] for r in rows) for k in fields},
+                              "risk_means_per_path":({k:mean(r[k] for r in risk) for k in fields} if risk else None)})
     if prices:
         with (args.out/"policy_grid.synthetic.csv").open("w",encoding="utf-8",newline="") as f:
             writer=csv.DictWriter(f,fieldnames=prices[0],lineterminator="\n")
@@ -177,7 +180,7 @@ def execute(args,chosen):
             "nonstandard_system":args.nonstandard_system,"response":args.response,
             "parameter_basis":parameter_basis,"scenario_results":summaries}
     (args.out/"synthetic_summary.json").write_text(json.dumps(report,indent=2,allow_nan=False)+"\n",encoding="utf-8")
-    print(f"{len(summaries)} scenarios, {sum(s['risk_units'] for s in summaries)} synthetic trajectories")
+    print(f"{len(summaries)} scenarios, {sum(s['trajectory_count'] for s in summaries)} synthetic trajectories")
 
 
 if __name__=="__main__":

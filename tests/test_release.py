@@ -45,8 +45,10 @@ class ReleaseTests(unittest.TestCase):
                           ("resident", False), ("resident", True)])
 
     def test_uniform_price_boundary_uses_full_table(self):
-        before = optimize.select(791.77)
-        after = optimize.select(791.78)
+        # Boundary = largest per-path direct cost of the 150-yuan arm across the 24 worlds
+        # (826.468 in the 1.0.0 table; 791.779 before the month-order and tax fixes).
+        before = optimize.select(826.46)
+        after = optimize.select(826.47)
         self.assertEqual(before["shares_always_fixed_before_world"], [{"worker": 0, "match": 0., "share": 1.}])
         self.assertEqual(after["shares_always_fixed_before_world"], [{"worker": 150, "match": 0., "share": 1.}])
         self.assertGreater(after["mean_gap_reduction_yuan_month_range"][0], .75)

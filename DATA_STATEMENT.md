@@ -7,7 +7,7 @@
 | `data/public/` | Public policy register and regional parameters, each row with its official source | CC BY 4.0 (sources remain public documents) |
 | `data/synthetic/`, `extensions/**/*.synthetic.json` | Synthetic individuals and synthetic fixtures generated for testing | CC BY 4.0 |
 | `data/requirements/` | Empty templates (headers only) | CC BY 4.0 |
-| `extensions/mortality_wpp/valuation/mortality_public/` | Extract of UN World Population Prospects 2024 (China) | UN terms; see `source_manifest.json` |
+| `extensions/mortality_wpp/valuation/mortality_public/` | Extract of UN World Population Prospects 2024 (China) | CC BY 3.0 IGO; see `source_manifest.json` and NOTICE |
 
 ## What is not included
 

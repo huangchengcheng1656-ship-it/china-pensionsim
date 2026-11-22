@@ -1,11 +1,15 @@
-"""Replay the R103 frozen release's sealed synthetic outputs after adaptation."""
+"""Replay sealed synthetic outputs.
+
+The survival-valuation baseline was regenerated for release 1.0.0 after the
+month-order correction (contributions post before adjudication); the budget
+solver replays the research-release portfolio fixture unchanged.
+"""
 import json
 from math import isclose
 from pathlib import Path
 import unittest
 
 from extensions.survival_valuation.valuation.paths import build as build_r53
-from extensions.continuation_valuation.valuation.assess import assess as assess_r99
 from extensions.budget_solver.optimization.replay import r100_replay
 from extensions.legacy_paths import to_public
 
@@ -39,10 +43,6 @@ class FrozenR103RegressionTests(unittest.TestCase):
         # Source hashes are intentionally excluded: module and engine paths changed during adaptation.
         for key in frozen:
             assert_json_close(self, actual[key], frozen[key], f"$.{key}")
-
-    def test_r99_continuation_values_match_frozen_result(self):
-        frozen = json.loads((ROOT / "extensions/continuation_valuation/valuation/results.synthetic.json").read_text(encoding="utf-8"))
-        assert_json_close(self, assess_r99(), to_public(frozen))
 
     def test_r103_integer_solver_replay_matches_frozen_result(self):
         frozen = json.loads((ROOT / "extensions/budget_solver/optimization/verified_r100.synthetic.json").read_text(encoding="utf-8"))

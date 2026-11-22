@@ -130,8 +130,9 @@ def reconcile(*, worker_rows, resident_years, resident_account, deemed_by_region
     resident_balance = money(resident_account)
     kept, cleared = keep_employee_months(worker_rows, choice_by_month)
     worker_dates = {r.month for r in kept}
-    if any(t >= decision_month for t in worker_dates):
-        raise ValueError("future or same-month credits cannot enter opening eligibility")
+    # Adjudication happens at the end of the decision month, after that month's posting.
+    if any(t > decision_month for t in worker_dates):
+        raise ValueError("future credits cannot enter eligibility")
     if any(type(n) is not int or n < 0 for n in deemed_by_region.values()):
         raise ValueError("document the province-level deemed credit")
     deemed_total = sum(deemed_by_region.values())
@@ -141,8 +142,8 @@ def reconcile(*, worker_rows, resident_years, resident_account, deemed_by_region
     own = collective = Fraction()
     resident_principal = Fraction()
     for year in resident_years:
-        if any(t >= decision_month for t in year.covered_months):
-            raise ValueError("future or same-month resident credits cannot enter opening eligibility")
+        if any(t > decision_month for t in year.covered_months):
+            raise ValueError("future resident credits cannot enter eligibility")
         covered = year.covered_months
         resident_credit += len(covered)
         n = len(covered & worker_dates)

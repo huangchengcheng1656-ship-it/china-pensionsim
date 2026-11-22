@@ -27,8 +27,16 @@ def run(destination, region=None):
     )
     if completed.returncode:
         raise RuntimeError(completed.stdout + completed.stderr)
+    interruption = {
+        "mode": "synthetic_fixture",
+        "parameter_basis": ("固定的职业中断回归样例，使用样例自带的全国占位参数；"
+                            "不随 --region 改变 / fixed career-interruption regression fixture with its own "
+                            "national placeholder parameters; not affected by --region"),
+        "region_requested": region,
+        "results": interruption_run(),
+    }
     (destination / "interruption.synthetic.json").write_text(
-        json.dumps(interruption_run(), ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        json.dumps(interruption, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
         encoding="utf-8",
     )
     (destination / "data_validation.json").write_text(

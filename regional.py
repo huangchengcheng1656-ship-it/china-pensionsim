@@ -1,8 +1,11 @@
 """Apply the layered public regional CSV to explicit synthetic-carrier scenarios."""
 import csv
 from copy import deepcopy
+from datetime import date, timedelta
 import json
 from pathlib import Path
+
+import data_validation
 
 from local_terms import LocalTerms
 from regional_profile import FutureScenario, RegionalProfile
@@ -29,7 +32,12 @@ def _one(rows, *, level, name=None, province=None):
 
 def load_terms(region, *, through="2039-12", csv_path=None, registry_path=None):
     """Build Zhejiang worker / Hangzhou urban resident terms for synthetic carriers."""
-    with Path(csv_path or REGIONAL_CSV).open(encoding="utf-8-sig", newline="") as handle:
+    path = Path(csv_path or REGIONAL_CSV)
+    # Every entry point applies the same contract as data_validation.py.
+    errors = data_validation.validate_file(path, schema="regional_parameters.csv")
+    if errors:
+        raise ValueError("区域参数表未通过校验：" + "；".join(errors))
+    with path.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.DictReader(handle))
     worker_row = _one(rows, level="province", name=region)
     resident_row = _one(rows, level="city", name="杭州市区", province=region)
@@ -37,14 +45,25 @@ def load_terms(region, *, through="2039-12", csv_path=None, registry_path=None):
         raise ValueError("当前公开参数适配仅支持浙江省；请补充登记和适用域审阅后再扩展")
 
     registry = deepcopy(json.loads(Path(registry_path or LOCAL_REGISTRY).read_text(encoding="utf-8-sig")))
-    period = next(row for row in registry["employee"]["periods"] if row["applies_from"].startswith("2026-"))
-    period.update(
+    periods = registry["employee"]["periods"]
+    period = next(row for row in periods if row["applies_from"].startswith("2026-"))
+    effective = worker_row["effective_from"]
+    if not (period["applies_from"] <= effective <= period["applies_through"]) or not effective.endswith("-01"):
+        raise ValueError("effective_from 须为 2026 年登记期间内某月 1 日")
+    csv_terms = dict(
         floor_yuan_per_month=int(worker_row["contribution_floor_monthly"]),
         ceiling_yuan_per_month=int(worker_row["contribution_ceiling_monthly"]),
         new_retiree_wage_yuan_per_month=int(worker_row["retirement_base_monthly"]),
         document=worker_row["document"],
         sources=list(dict.fromkeys([*period["sources"], worker_row["source_url"]])),
     )
+    if effective == period["applies_from"]:
+        period.update(csv_terms)
+    else:
+        # Split the year: registered terms before the CSV's effective date, CSV terms from it.
+        later = deepcopy(period) | csv_terms | {"applies_from": effective}
+        period["applies_through"] = (date.fromisoformat(effective) - timedelta(days=1)).isoformat()
+        periods.insert(periods.index(period) + 1, later)
     snapshots = registry["hangzhou_urban_resident"]["payment_amount_snapshots"]
     snapshot = max((row for row in snapshots if row["as_of"].startswith("2026-")),
                    key=lambda row: row["as_of"])
