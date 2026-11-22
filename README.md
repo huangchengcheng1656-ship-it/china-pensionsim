@@ -1,5 +1,7 @@
 # China PensionSIM 1.0
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24441002.svg)](https://doi.org/10.5281/zenodo.24441002)
+
 **An open, rule-based dynamic microsimulation model of China's multi-pillar pension system.**
 
 [中文说明](README.zh.md)
@@ -83,9 +85,11 @@ Synthetic results illustrate how the rules work. They are not estimates for any 
 
 If you use China PensionSIM, please cite the software (see [CITATION.cff](CITATION.cff)):
 
-> Wang, P., & Huang, C. (2026). *China PensionSIM: An open dynamic microsimulation model of China's multi-pillar pension system* (Version 1.0.0) [Computer software].
+> Wang, P., & Huang, C. (2026). *China PensionSIM: An open dynamic microsimulation model of China's multi-pillar pension system* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24441002
 
-Repository: https://github.com/huangchengcheng1656-ship-it/china-pensionsim. A DOI will be added after the first archived release.
+Repository: https://github.com/huangchengcheng1656-ship-it/china-pensionsim.
+
+All versions: [10.5281/zenodo.24441001](https://doi.org/10.5281/zenodo.24441001). Use the version DOI above to cite the v1.0.0 results.
 
 ## License
 
