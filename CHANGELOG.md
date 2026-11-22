@@ -19,3 +19,9 @@ First public release.
 - Regenerated: the three policy price tables (`data/synthetic/policy_grid*.csv`) and the survival-valuation baseline. The 150-yuan arm's largest per-path direct cost moved from 791.78 to 826.47 because the retirement-month contribution now posts.
 - Continuation-contribution valuation (research version) removed from this release until its fixtures are re-sealed under the corrected month order.
 - Policy register implementation column points to public module paths; development directories renamed (`docs/module_history.md`).
+
+### Additional release-review corrections
+
+- Include the month-end employee–resident overlap refund in the active-month ordinary-asset reconciliation, without treating that later refund as an earlier P3 funding source.
+- Deduct eligible annuity contributions independently of first-pillar payment access; add two hand-calculated regression cases.
+- Align the model overview with the calendar-year eligibility threshold used by the continued-contribution scenario; clarify settlement timing and test-coverage statements.
